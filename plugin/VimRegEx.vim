@@ -3,6 +3,15 @@
 " Maintainer:  Dave Silvia <dsilvia@mchsi.com>
 " Date:        9/27/2004
 "
+" Version 1.1
+" Date:        10/12/2004
+"  Fixed:
+"   - Problem with UNIX type
+"     systems and have a single
+"     quote in the filename for
+"     the usage file.  Removed
+"     the single quotes.
+"
 " Version 1.0
 " Initial Release
 " Date:        10/10/2004
@@ -94,7 +103,7 @@ if !exists("g:VimrexSrcFile")
 	let g:VimrexSrcFile=fnamemodify(expand(g:VimrexFileDir."/.Vim Regular Expression Search Source"),":p")
 endif
 if !exists("g:VimrexUsageFile")
-	let g:VimrexUsageFile=fnamemodify(expand(g:VimrexFileDir."/.Vim Regular Expression 'The Fine Manual'"),":p")
+	let g:VimrexUsageFile=fnamemodify(expand(g:VimrexFileDir."/.Vim Regular Expression The Fine Manual"),":p")
 endif
 if !exists("g:VimrexExec")
 	let g:VimrexExec="ze"
@@ -940,12 +949,14 @@ let s:lpat=''
 let s:rline=0
 
 function! s:execRegex()
+	let caller=winnr()
 	execute bufwinnr(g:VimrexFile).'wincmd w'
 	let pattern=getline('.')
 	if pattern == ''
 		echohl Errormsg
 		echomsg "No search pattern specified"
 		echohl None
+		execute caller.'wincmd w'
 		return
 	endif
 	let sameregex=(s:rline == line('.') && s:lpat ==# pattern)
@@ -955,6 +966,7 @@ function! s:execRegex()
 			let ans=input("This could be a comment line, execute? ","n")
 			echohl None
 			if tolower(ans[0]) == 'n'
+				execute caller.'wincmd w'
 				return
 			endif
 		endif
@@ -983,6 +995,7 @@ function! s:execRegex()
 		echomsg ">>".pattern."<< search error: ".v:errmsg
 		echohl None
 		execute bufwinnr(g:VimrexSrcFile).'wincmd w'
+		execute caller.'wincmd w'
 		return
 	endif
 	syntax clear VimrexSearchAnchor
@@ -1063,6 +1076,7 @@ function! s:execRegex()
 	setlocal nomodified
 	execute bufwinnr(g:VimrexSrcFile).'wincmd w'
 	call cursor(lnum,cnum)
+	execute caller.'wincmd w'
 endfunction
 
 function! s:hiliteGrp(which,synGrp,lnum,matchPos)
