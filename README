@@ -1,0 +1,23 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=1091
+
+Start with one of the commands
+
+:Vimrex
+  or
+:VimRegEx
+
+The first opens within the current (g)vim session, the second starts a new (g)vim
+
+'z?' or the menu 'Usage' button opens a usage buffer.
+
+VimRegEx.vim is a plugin that aids in development/construction/analysis of Vim regular expressions.  It is not a search utility, although it certainly does that.  It is a development/learning environment that allows writing Vim regular expressions, element-by-element analysis of these expressions, and execution of the expressions against source text with the results illustrated both verbally in text and graphically in different highlighting for different types of regular expression atoms.
+
+It allows you to see, in verbal/graphical analytical terms, just what is being searched for and what will result with a given Vim regular expression.
+
+There are comparable tools on the net for other environments (notably .NET, Perl, and Python), but nothing exists for Vim ... until now!
+
+The plugin is written specifically for Vim, so you can build your regular expressions as you would in Vim.  In other tools, you'd have to make allowances for backslash escaping specific elements (like '(', ')', '+', '?', etc.) to use what you had developed in those tools.  You'd also have to make substitutions, like '\<' for '\b' for word boundary ('\b' has its own meaning in Vim), and '\(...\)\@=' for '(?=...)'.  This renders these other tools all but useless for Vim.
+
+VimRegEx has its own built in documentation, a rich set of variables for tuning its performance/appearance to your liking in your vimrc, an easy menu driven interface for gvim as well as easy to use keyboard mappings for the same commands in vim.  There's also file generation capability to save your windows in text or html.
+
+If you've been struggling with a regular expression and can't seem to get it to do what you want, maybe what you think you're doing isn't what Vim sees.  See what Vim sees in VimRegEx.  In the VimRegEx enviroment, what you see is what you get!
